@@ -101,6 +101,12 @@
 			margin: 0 auto;
 		}
 	}
+    .logo{
+        background: url(/logo.png) center center no-repeat;
+        height: 50px;
+        width: 100%;
+        clear: both;
+    }
 </style>
 <script type="text/javascript">
 function I(id){return document.getElementById(id);}
@@ -214,7 +220,8 @@ function initUI(){
 </script>
 </head>
 <body>
-<h1>HTML5 Speedtest</h1>
+<div class="logo"><img src="logo.png" /></div>
+<h1>Speedtest</h1>
 <div id="startStopBtn" onclick="startStop()"></div>
 <div id="test">
 	<div class="testGroup">
@@ -249,7 +256,7 @@ function initUI(){
 		IP Address: <span id="ip"></span>
 	</div>
 </div>
-<a href="https://github.com/adolfintel/speedtest">Source code</a>
+<a href="https://github.com/adolfintel/speedtest">Source code</a> created for <a href="https://github.com/adolfintel/">Federico Dossena</a>
 <script type="text/javascript">setTimeout(initUI,100);</script>
 </body>
 </html>
