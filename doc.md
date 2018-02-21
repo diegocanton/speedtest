@@ -1,7 +1,7 @@
 # HTML5 Speedtest
 
 > by Federico Dossena  
-> Version 4.5, November 1, 2017
+> Version 4.5.2, February 9, 2018
 > [https://github.com/adolfintel/speedtest/](https://github.com/adolfintel/speedtest/)
 
 
@@ -215,6 +215,8 @@ w.postMessage('start '+JSON.stringify(params))
     * Default test order: `IP_D_U`
     * __Important:__ Tests can only be run once
     * __Important:__ On Firefox, it is better to run the upload test last
+* __getIp_ispInfo__: if true, the server will try to get ISP info and pass it along with the IP address. This will add `isp=true` to the request to `url_getIp`. getIP.php accomplishes this using ipinfo.io
+    * Default: `true`
 * __enable_quirks__: enables browser-specific optimizations. These optimizations override some of the default settings. They do not override settings that are explicitly set.
     * Default: `true`
 * __garbagePhp_chunkSize__: size of chunks sent by garbage.php in megabytes
@@ -295,7 +297,8 @@ A symlink to `/dev/urandom` is also ok.
 Your replacement must simply respond with a HTTP code 200 and send nothing else. You may want to send additional headers to disable caching. The test assumes that Connection:keep-alive is sent by the server.
 
 #### Replacement for `getIP.php`
-Your replacement must simply respond with the client's IP as plaintext. Nothing fancy.
+Your replacement must simply respond with the client's IP as plaintext. Nothing fancy.  
+If you want, you can also accept the `isp=true` parameter and also include the ISP info.
 
 #### JS
 You need to start the test with your replacements like this:
@@ -313,7 +316,7 @@ To set up the telemetry, we need to do 4 things:
 
 ### Creating the database
 This step is only for MySQL and PostgreSQL. Skip this if you want to use SQLite.
-Log into your database using phpMyAdmin or a similar software and import `telemetry.sql` into an empty database.  
+Log into your database using phpMyAdmin or a similar software and import the appropriate sql file into an empty database. For MySQL databases use `telemetry_mysql.sql` and for PostgreSQL databases use `telemetry_postgesql.sql`.
 If you see a table called `speedtest_users`, empty, you did it right.
 
 ### Configuring `telemetry.php`
@@ -329,7 +332,7 @@ If you choose to use MySQL, you must also add your database credentials:
 $MySql_username="USERNAME"; //your database username
 $MySql_password="PASSWORD"; //your database password
 $MySql_hostname="DB_HOSTNAME"; //database address, usually localhost\
-$MySql_databasename="DB_NAME"; //the name of the database where you loaded telemetry.sql
+$MySql_databasename="DB_NAME"; //the name of the database where you loaded telemetry_mysql.sql
 ```
 
 If you choose to use PostgreSQL, you must also add your database credentials:
@@ -337,7 +340,7 @@ If you choose to use PostgreSQL, you must also add your database credentials:
 $PostgreSql_username="USERNAME"; //your database username
 $PostgreSql_password="PASSWORD"; //your database password
 $PostgreSql_hostname="DB_HOSTNAME"; //database address, usually localhost
-$PostgreSql_databasename="DB_NAME"; //the name of the database where you loaded telemetry.sql
+$PostgreSql_databasename="DB_NAME"; //the name of the database where you loaded telemetry_postgresql.sql
 ```
 
 ### Enabling telemetry
@@ -398,7 +401,7 @@ To create the minified version, use UglifyJS like this:
 uglifyjs -c speedtest_worker.js > speedtest_worker.min.js
 ```
 
-Pull requests are much appreciated. If you don't use github (or git), simply contact me at [dosse91@paranoici.org](mailto:dosse91@paranoici.org).
+Pull requests are very appreciated. If you don't use github (or git), simply contact me at [dosse91@paranoici.org](mailto:dosse91@paranoici.org).
 
 __Important:__ please add your name to modified versions to distinguish them from the main project.
 
